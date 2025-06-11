@@ -29,8 +29,7 @@
 *
 ****************************************************************************/
 
-
-#if !defined( BOOL_DEFINED )  &&  !defined( bool ) && !(__WATCOMC__ >= 1070 && defined(__cplusplus))
+#if ( __STC_VERSION__ < 202311L ) && !defined( BOOL_DEFINED )  &&  !defined( bool ) && !( __WATCOMC__ >= 1070 && defined(__cplusplus) )
     #define BOOL_DEFINED
     typedef unsigned char bool;
 #endif
