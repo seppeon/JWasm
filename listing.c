@@ -108,6 +108,8 @@ static void log_segment( const struct asym *, const struct asym *group );
 static void log_group(   const struct asym *, const struct dsym * );
 static void log_proc(    const struct asym * );
 
+typdef void (*)(const struct asym *, const char *, int_32) log_struct_type;
+
 static const struct print_item cr[] = {
     { LQ_MACROS,          0, maccap, log_macro   },
     { LQ_STRUCTS,         0, strcap, log_struct  },
@@ -1126,7 +1128,7 @@ void LstWriteCRef( void )
                 }
             }
             for( dir = queues[cr[idx].type].head; dir ; dir = dir->next ) {
-                cr[idx].function( &dir->sym, ( cr[idx].flags & PRF_ADDSEG ) ? queues[LQ_SEGS].head : NULL, 0 );
+                ((log_struct_type)(cr[idx].function))( &dir->sym, ( cr[idx].flags & PRF_ADDSEG ) ? queues[LQ_SEGS].head : NULL, 0 );
             }
         }
     }
